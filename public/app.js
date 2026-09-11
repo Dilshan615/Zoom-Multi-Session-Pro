@@ -34,7 +34,7 @@ function initParticipants(count) {
   const saved = localStorage.getItem('zoom_saved_participants');
   let savedList = [];
   if (saved) {
-    try { savedList = JSON.parse(saved); } catch (e) {}
+    try { savedList = JSON.parse(saved); } catch (e) { }
   }
 
   participants = [];
@@ -135,7 +135,7 @@ function renderParticipants() {
       if (participants[idx] && field) {
         participants[idx][field] = e.target.value.trim();
         participants[idx].name = `${participants[idx].firstName || ''} ${participants[idx].lastName || ''}`.trim();
-        
+
         // Update title dynamically if first or last name changes
         if (field === 'firstName' || field === 'lastName') {
           const title = e.target.closest('.participant-item').querySelector('.participant-title');
@@ -153,7 +153,7 @@ let autoSaveTimer = null;
 
 function saveToStorage() {
   localStorage.setItem('zoom_saved_participants', JSON.stringify(participants));
-  
+
   // Debounced auto-save directly to participants.txt
   clearTimeout(autoSaveTimer);
   autoSaveTimer = setTimeout(() => {
@@ -190,7 +190,7 @@ async function loadFromFile(showFeedback = true) {
     if (data.success && data.participants && data.participants.length > 0) {
       participants = data.participants;
       sessionCount = participants.length;
-      
+
       // Update count button active state
       countButtons.forEach(b => {
         b.classList.remove('active', 'active-gold');
@@ -199,7 +199,7 @@ async function loadFromFile(showFeedback = true) {
         }
       });
       btnLaunchText.innerText = `LAUNCH ${sessionCount} ZOOM SESSIONS`;
-      
+
       renderParticipants();
       if (showFeedback) {
         appendLog(`📂 Successfully loaded ${participants.length} participants from participants.txt`, 'success');
@@ -499,7 +499,7 @@ function connectSSE() {
 
       if (data.sessionId) {
         updateSessionCard(data.sessionId, data.status, data.message, data);
-        
+
         let logType = 'info';
         if (data.status === 'in_meeting') logType = 'success';
         if (data.status === 'error') logType = 'error';
