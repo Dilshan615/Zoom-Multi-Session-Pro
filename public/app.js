@@ -27,11 +27,6 @@ const muteVideoToggle = document.getElementById('muteVideoToggle');
 // Sample Sri Lankan Profiles for realistic auto generation
 const sampleProfiles = [
   { firstName: 'Kasun', lastName: 'Perera', email: 'kasun.p@gmail.com', nic: '199824501234', phone: '0771234567' },
-  { firstName: 'Nuwan', lastName: 'Silva', email: 'nuwan.s@gmail.com', nic: '199934102345', phone: '0712345678' },
-  { firstName: 'Dilshan', lastName: 'Fernando', email: 'dilshan.f@gmail.com', nic: '200015603456', phone: '0763456789' },
-  { firstName: 'Chamara', lastName: 'Bandara', email: 'chamara.b@gmail.com', nic: '199745204567', phone: '0784567890' },
-  { firstName: 'Kavindu', lastName: 'Senanayake', email: 'kavindu.s@gmail.com', nic: '200156305678', phone: '0755678901' },
-  { firstName: 'Ashan', lastName: 'Jayasinghe', email: 'ashan.j@gmail.com', nic: '199678206789', phone: '0726789012' }
 ];
 
 // Initialize participants
