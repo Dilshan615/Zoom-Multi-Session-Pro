@@ -102,40 +102,14 @@ You can edit [`participants.txt`](participants.txt) in **Notepad** anytime. Exam
 # You can edit this file directly in Notepad!
 # ==========================================
 
-[Session 1]
-First Name: Dilshan
-Last Name: Dinuja
-Email: gamagedinuja842@gmail.com
-NIC Number: 200516703056
-Contact Number: 0703026293
 
-[Session 2]
+[Session 1]
 First Name: Kasun
 Last Name: Perera
 Email: kasun.p@gmail.com
 NIC Number: 199824501234
 Contact Number: 0771234567
 
-[Session 3]
-First Name: Nuwan
-Last Name: Silva
-Email: nuwan.s@gmail.com
-NIC Number: 199934102345
-Contact Number: 0712345678
-
-[Session 4]
-First Name: Chamara
-Last Name: Bandara
-Email: chamara.b@gmail.com
-NIC Number: 199745204567
-Contact Number: 0784567890
-
-[Session 5]
-First Name: Kavindu
-Last Name: Senanayake
-Email: kavindu.s@gmail.com
-NIC Number: 200156305678
-Contact Number: 0755678901
 ```
 
 ---
