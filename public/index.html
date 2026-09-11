@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zoom Multi-Session Bot - Auto Join & Form Filler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-background">
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Zoom Multi-Session Pro</h1>
+          <p>Multi-account auto form-filler & simultaneous meeting joiner</p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-dot"></span>
+        <span id="systemStatusText">System Ready</span>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+      <!-- Left Column: Controls & Setup -->
+      <div class="control-panel">
+        
+        <!-- Meeting Configuration Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="step-num">1</span>
+              <h2>Meeting Details</h2>
+            </div>
+            <span class="badge-pill">Required</span>
+          </div>
+
+          <div class="card-body">
+            <div class="form-group">
+              <label for="meetingUrl">Zoom URL (Join Link or Registration Link)</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  id="meetingUrl" 
+                  placeholder="https://zoom.us/j/123456789 or https://zoom.us/meeting/register/..." 
+                  autocomplete="off"
+                />
+                <button type="button" class="btn-icon" id="btnPasteUrl" title="Paste from clipboard">
+                  📋 Paste
+                </button>
+              </div>
+              <small class="helper-text">Supports both direct meeting links and registration forms.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="meetingPasscode">Meeting Passcode (Optional)</label>
+              <input 
+                type="text" 
+                id="meetingPasscode" 
+                placeholder="Leave blank if included in link" 
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Number of Simultaneous Sessions</label>
+              <div class="session-count-selector">
+                <button type="button" class="count-btn" data-count="1">1</button>
+                <button type="button" class="count-btn" data-count="2">2</button>
+                <button type="button" class="count-btn" data-count="3">3</button>
+                <button type="button" class="count-btn active" data-count="4">4</button>
+                <button type="button" class="count-btn active-gold" data-count="5">5</button>
+                <button type="button" class="count-btn" data-count="6">6</button>
+              </div>
+            </div>
+
+            <div class="options-grid">
+              <label class="toggle-control">
+                <input type="checkbox" id="muteAudioToggle" checked />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Auto-Mute Mic</span>
+              </label>
+
+              <label class="toggle-control">
+                <input type="checkbox" id="muteVideoToggle" checked />
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Turn Off Camera</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participants Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="step-num">2</span>
+              <h2>Participant Profiles</h2>
+            </div>
+            <div class="quick-actions">
+              <button type="button" class="btn-sm" id="btnSaveToFile" title="Save details directly to participants.txt">💾 Save File</button>
+              <button type="button" class="btn-sm" id="btnReloadFromFile" title="Reload details from participants.txt">📂 Load File</button>
+              <button type="button" class="btn-sm" id="btnAutoGenerate">🎲 Auto Fill</button>
+              <button type="button" class="btn-sm" id="btnResetNames">↺ Reset</button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <p class="section-desc">Details are automatically synced with <code>participants.txt</code> (editable in Notepad).</p>
+            <div class="participants-list" id="participantsList">
+              <!-- Dynamically rendered participant inputs -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Launch Actions Card -->
+        <div class="card launch-card">
+          <button type="button" class="btn-launch" id="btnLaunchAll">
+            <div class="btn-content">
+              <span class="rocket-icon">🚀</span>
+              <span class="btn-text" id="btnLaunchText">LAUNCH 5 ZOOM SESSIONS</span>
+            </div>
+            <span class="btn-subtext">Opens Chrome tabs & auto fills forms in 1 click</span>
+          </button>
+
+          <button type="button" class="btn-stop-all" id="btnStopAll">
+            ⏹ Stop & Close All Active Sessions
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Live Monitor & Activity Feed -->
+      <div class="monitor-panel">
+        
+        <!-- Live Sessions Grid -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon-pulse"></span>
+              <h2>Active Zoom Sessions</h2>
+            </div>
+            <span class="session-counter" id="activeCountBadge">0 Active</span>
+          </div>
+
+          <div class="card-body">
+            <div class="session-cards-grid" id="sessionCardsGrid">
+              <div class="empty-state" id="emptySessionsState">
+                <div class="empty-icon">👥</div>
+                <h3>No Active Sessions</h3>
+                <p>Configure meeting link above and click Launch to start multi-sessions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Activity Log -->
+        <div class="card terminal-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="terminal-dot"></span>
+              <h2>Live Bot Activity Console</h2>
+            </div>
+            <button type="button" class="btn-sm" id="btnClearLogs">Clear Log</button>
+          </div>
+
+          <div class="terminal-body" id="logConsole">
+            <div class="log-entry log-info">
+              <span class="log-time">[System]</span>
+              <span class="log-msg">Zoom Multi-Session Bot initialized. Ready for one-click launch.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
