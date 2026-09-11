@@ -3,10 +3,5 @@
 # You can edit this file directly in Notepad!
 # ==========================================
 
-[Session 1]
-First Name: Dilshan
-Last Name: Dinuja
-Email: gamagedinuja842@gmail.com
-NIC Number: 200516703056
-Contact Number: 0703026293
+
 
