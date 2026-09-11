@@ -138,3 +138,10 @@ Contact Number: 0771234567
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<p align="center">
+  <b>Developed by SL Code Hub</b><br>
+  <sub>Zoom Multi-Session Pro • All Rights Reserved</sub>
+</p>
